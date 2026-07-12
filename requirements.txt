@@ -2,3 +2,4 @@ piper-tts
 luma.oled
 Pillow
 faster-whisper
+ollama
