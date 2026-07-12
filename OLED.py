@@ -4,8 +4,10 @@ from luma.oled.device import ssd1106
 from PIL import Image
 import time
 
+
 serial = i2c(port=1, adress=0x3C)
 device = ssd1106(serial, width=128, height=64)
+
 
 def oled(file_path):
     img = Image.open(file_path).convert('1')
