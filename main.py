@@ -1,4 +1,4 @@
-
+from speaker import speak
 
 def main():
     print("Hello World!")
