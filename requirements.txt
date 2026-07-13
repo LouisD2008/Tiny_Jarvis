@@ -3,3 +3,7 @@ luma.oled
 Pillow
 faster-whisper
 ollama
+gpiozero
+sounddevice
+scipy
+numpy
