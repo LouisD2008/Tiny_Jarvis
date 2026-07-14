@@ -15,4 +15,4 @@ def generate(prompt):
     # return response.message.content
     # instead of that, we use yield keyword
     for chunk in response:
-        yield chunk.message.content
+        yield chunk['message']['content']

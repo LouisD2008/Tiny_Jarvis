@@ -1,21 +1,33 @@
 from piper import PiperVoice
-import wave
+import pyaudio  # basically a python wrapper for the C library portaudio
 
 
 voice = PiperVoice.load("piper_voices/en_US-lessac-medium.onnx")
+p = pyaudio.PyAudio()
 
 
-# Note : download a voice with python -m piper.download_voices en_US-lessac-medium
+# Note : download a voice with `python -m piper.download_voices en_US-lessac-medium`
 
 
 def speak(text):
+    stream = None
     try:
-      with wave.open("output.wav", "wb") as wav_file:
-        voice.synthesize_wav(text, wav_file)
-      return True
-    except:
-       return False
-
-
-# Next step: streaming the audio data in chunks instead of synthetizing the entire text at once
-# Look at piper documentation, its not that difficult
+        stream = p.open(
+            format = pyaudio.paInt16,
+            channels = 1,
+            rate = voice.config.sample_rate,
+            output = True
+        )
+        for sentence in text:
+            if not sentence.strip():
+                continue
+            for audio_bytes in voice.synthesize_stream(sentence):
+                stream.write(audio_bytes)
+        return True
+    except Exception as e:
+        print(f"Speaker error: {e}")
+        return False
+    finally:
+        if stream:
+            stream.stop_stream()
+            stream.close()

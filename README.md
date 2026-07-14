@@ -85,9 +85,9 @@ Do
 ```bash
 sudo apt install libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7-dev libtiff6-dev
 ``` 
-and for `sounddevice`:
+and for `sounddevice` and `portaudio`:
 ```bash
-sudo apt install libportaudio2 portaudio19-dev
+sudo apt install libportaudio2 portaudio19-dev python3-dev
 ```
 For `ollama`: you need to pull a model first. For example:
 ```bash

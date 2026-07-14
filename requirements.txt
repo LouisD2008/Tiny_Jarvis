@@ -7,3 +7,4 @@ gpiozero
 sounddevice
 scipy
 numpy
+pyaudio
