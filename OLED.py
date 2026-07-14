@@ -9,11 +9,14 @@ serial = i2c(port=1, address=0x3C)
 device = ssd1106(serial, width=128, height=64)
 
 
-def oled(file_path):
+def oled(file_path, stop_event=None):   # stop_event is the thread signal here
     img = Image.open(file_path)
     if hasattr(img, "is_animated") and img.is_animated:
-        for frame in ImageSequence.Iterator(img):
-            device.display(frame.convert('1'))
-            time.sleep(0.1)
+        while stop_event is None or not stop_event.is_set():
+            for frame in ImageSequence.Iterator(img):
+                if stop_event and stop_event.is_set():
+                    break
+                device.display(frame.convert('1'))
+                time.sleep(0.1)
     else:
         device.display(img.convert('1'))

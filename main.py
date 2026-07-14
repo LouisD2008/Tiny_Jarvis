@@ -6,6 +6,7 @@ from ai import generate
 import glob
 import os
 import time
+import threading
 
 
 def get_latest_recordings():
@@ -17,7 +18,9 @@ def get_latest_recordings():
 
 def main():
     print("Tiny Jarvis is active and listening!")
-    oled("home.png")
+    switch = threading.Event()
+    idle_anim_thread = threading.Thread(target=oled, args=("home.png", switch))
+    idle_anim_thread.start()
     while True:
         audio_file = get_latest_recordings()
         if audio_file:
@@ -31,7 +34,11 @@ def main():
                     os.remove(audio_file)
                     continue # skips the rest of the code in this iteration and goes back to the top of the while loop
                 print("Generating response...")
-                oled("thinking_animation.gif")
+                switch.set()
+                idle_anim_thread.join()
+                switch.clear()
+                thinking_anim_thread = threading.Thread(target=oled, args=("thinking_animation.gif", switch))
+                thinking_anim_thread.start()
                 ai_response = generate(prompt)
                 print(f"Jarvis: {ai_response}")
                 print("Generating speech...")
@@ -47,6 +54,11 @@ def main():
                 if os.path.exists(audio_file):
                     os.remove(audio_file)
                     print("Deleted recording file")
+                    switch.set()
+                    thinking_anim_thread.join()
+                    switch.clear()
+                    idle_anim_thread = threading.Thread(target=oled, args=("home.png", switch))
+                    idle_anim_thread.start()
         time.sleep(0.2)
 
 

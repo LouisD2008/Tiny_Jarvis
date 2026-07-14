@@ -89,19 +89,24 @@ and for `sounddevice`:
 ```bash
 sudo apt install libportaudio2 portaudio19-dev
 ```
-For ollama: you need to pull a model first. For example:
+For `ollama`: you need to pull a model first. For example:
 ```bash
 ollama pull qwen3:0.6b
 ```
 Also, the buttons need to be on the right GPIO pins.\
 Button for talking should be on GPIO 17 and the other on GPIO 27, but you can change these numbers in `listener.py`.
 
-Finally: make sure to turn on I2C in raspberry pi settings.\
+Next: make sure to turn on I2C in raspberry pi settings.\
 Access these settings via:
 ```bash
 sudo raspi-config
 ```
 I2C Interface --> ON
+
+Also: if you don't have it downloaded yet, make  sure to get a Piper voice in the `piper_voices/`:
+```bash
+python -m piper.download_voices en_US-lessac-medium
+```
 
 # Hardware
 

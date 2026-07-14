@@ -46,4 +46,4 @@ def stop_recording():
 btn_a.when_pressed = start_recording
 btn_a.when_released = stop_recording
 
-# button b is used for smth else, dw
+# button b is used turning off the pi, will be implemented later.
