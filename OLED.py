@@ -3,6 +3,7 @@ from luma.core.interface.serial import i2c
 from luma.oled.device import ssd1106
 from PIL import Image, ImageSequence # this is for gifs
 import time
+import threading
 
 
 serial = i2c(port=1, address=0x3C)
@@ -20,3 +21,18 @@ def oled(file_path, stop_event=None):   # stop_event is the thread signal here
                 time.sleep(0.1)
     else:
         device.display(img.convert('1'))
+
+
+class AssistantDisplay:
+    def __init__(self):
+        self.switch = threading.Event()
+        self.thread = None
+    def show(self, file_path):
+        self.stop()
+        self.switch.clear()
+        self.thread = threading.Thread(target = oled, args=(file_path, self.switch))
+        self.thread.start()
+    def stop(self):
+        self.switch.set()
+        if self.thread and self.thread.is_alive():
+            self.thread.join()

@@ -1,23 +1,20 @@
 import listener # This will initialize listener.py once
 from speaker import speak
 from transcriber import transcribe_audio
-from OLED import oled
+from OLED import AssistantDisplay
 from ai import generate, sentence_buffer
 import os
 import time
-import threading
 
 
 def main():
+    d = AssistantDisplay()
     if not os.path.exists("recordings"):  # small check in case recordings/ dir doesnt exist, you never know
         print("Warning: you didn't have a recordings/ folder. Please restart the script for everything to work well.")
         os.makedirs("recordings")
     print("Tiny Jarvis is active and listening!")
-    switch = threading.Event()   # starts as False
-    idle_anim_thread = threading.Thread(target=oled, args=("home.png", switch))   # creates the idle animation thread
-    idle_anim_thread.start()   # starts the idle animation thread (it will actually finish instantly since its just a png)
+    d.show("home.png")
     while True:
-        thinking_anim_thread = None
         audio_file = listener.get_latest_recordings()
         if audio_file:  # if audio recordings are found in recordings/
             try:
@@ -30,11 +27,7 @@ def main():
                     os.remove(audio_file)
                     continue # skips the rest of the code in this iteration and goes back to the top of the while loop
                 print("Generating response...")
-                switch.set()  # the switch is set to True, the function in OLED.py finishes bc of the while loop
-                idle_anim_thread.join()  # we wait for that thread to finish and kill it
-                switch.clear()  # we reset the switch to False
-                thinking_anim_thread = threading.Thread(target=oled, args=("thinking_animation.gif", switch))  # we create another thread for the thinking animation
-                thinking_anim_thread.start()  # starts the thinking animation thread
+                d.show("thinking_animation.gif")
                 raw_token_stream = generate(prompt)  # the raw token stream generated in real time by the ai chatbot
                 sentence_stream = sentence_buffer(raw_token_stream)  # we "filter" that raw token stream into a list of sentences
                 speech_success = speak(sentence_stream)  # that list/stream of sentences is poured into the speakers!
@@ -46,12 +39,7 @@ def main():
                 if os.path.exists(audio_file):
                     os.remove(audio_file)
                     print("Deleted recording file")
-                    switch.set()  # set the switch to true, signaling the gif to stop playing in OLED.py
-                    if thinking_anim_thread is not None:
-                        thinking_anim_thread.join()   # we wait for that thread to finish them kill it
-                    switch.clear()  # reset the switch back to False
-                    idle_anim_thread = threading.Thread(target=oled, args=("home.png", switch))   # we create a new thread for idle png, bc once you killed a thread, you can't revive it, you have to declare it all over again
-                    idle_anim_thread.start()  # starts the idle png thread
+                    d.show("home.png")
         time.sleep(0.2)  # wait a bit in between calling get_latest_recordings()
 
 
