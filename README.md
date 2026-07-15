@@ -110,5 +110,4 @@ python -m piper.download_voices en_US-lessac-medium
 
 # Hardware
 
-Gerber files are here: COMING SOON, first PCBs are a failure and as such schematics need updating.\
-same for other files needed for PCB manufacturing
+See [JOURNAL.md](JOURNAL.md)
