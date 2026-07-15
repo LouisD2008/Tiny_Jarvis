@@ -2,30 +2,10 @@ import listener # This will initialize listener.py once
 from speaker import speak
 from transcriber import transcribe_audio
 from OLED import oled
-from ai import generate
-import glob   # some sort of regex, basically for finding file path names that follow a specific pattern
+from ai import generate, sentence_buffer
 import os
 import time
 import threading
-
-
-def get_latest_recordings():
-    wav_files = glob.glob(os.path.join("recordings", "*.wav"))
-    if not wav_files:
-        return None
-    return sorted(wav_files)[0]
-
-
-def sentence_buffer(token_gen):
-    buffer = ""
-    sentence_endings = {'.', '?', '!', '\n', ';', ':'}
-    for token in token_gen:
-        buffer += token
-        if any(buffer.strip().endswith(ending) for ending in sentence_endings):  # any keyword returns True if any item in an iterable is True, so here if any buffer element ends with one of the elements in sentence_endings
-            yield buffer.strip()
-            buffer = ""
-    if buffer.strip():
-        yield buffer.strip()
 
 
 def main():
@@ -38,7 +18,7 @@ def main():
     idle_anim_thread.start()   # starts the idle animation thread (it will actually finish instantly since its just a png)
     while True:
         thinking_anim_thread = None
-        audio_file = get_latest_recordings()
+        audio_file = listener.get_latest_recordings()
         if audio_file:  # if audio recordings are found in recordings/
             try:
                 print(f"Found new recording: {audio_file}")

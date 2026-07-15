@@ -4,6 +4,7 @@ from gpiozero import Button
 import sounddevice as sd
 from scipy.io import wavfile
 import numpy as np
+import glob
 
 btn_a = Button(17)
 sample_rate = 44100
@@ -41,6 +42,13 @@ def stop_recording():
         wavfile.write(filename, sample_rate, full_audio)
     is_recording = False
     return filename
+
+
+def get_latest_recordings():
+    wav_files = glob.glob(os.path.join("recordings", "*.wav"))
+    if not wav_files:
+        return None
+    return sorted(wav_files)[0]
 
 
 btn_a.when_pressed = start_recording
