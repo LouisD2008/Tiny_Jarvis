@@ -1,14 +1,16 @@
 # TINY_JARVIS JOURNAL
 
-## Table of contents:
- - [June 15](#june-15-started-prototyping) : 3 hours
+> <u>Note</u>: if images don't load first try, reload the page.
 
-## June 15: Started prototyping + visuals
+## Table of contents:
+ - [July 11](#june-15-started-prototyping) : 3 hours
+
+## July 11: Started prototyping + visuals
 
 <table border="0">
   <tr>
     <td valign="top">
-      <img src="https://cdn.hackclub.com/019f6692-acd1-7dd8-9a5f-7f35852d8203/paste-1784132312883.png" width="900px">
+      <img src="https://cdn.hackclub.com/019f6692-acd1-7dd8-9a5f-7f35852d8203/paste-1784132312883.png" width="600px">
     </td>
     <td valign="top">
       <p>I received all the materials I needed to start prototyping:</p>
@@ -75,6 +77,7 @@ But in a PCB, this would be much different since the connection would be direct,
     </td>
     <td>
     <img src="https://cdn.hackclub.com/019f66a8-ecdf-7716-a163-5b531a83cf56/paste-1784133774152.png">
+    </td>
   </tr>
 </table>
 (These are animated btw, just can't render them in a JOURNAL.md)
