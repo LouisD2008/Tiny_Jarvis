@@ -3,14 +3,18 @@
 > <u>Note</u>: if images don't load first try, reload the page.
 
 ## Table of contents:
- - [July 11](#june-15-started-prototyping) : 3 hours
+ - [July 5](#june-5-started-prototyping) : 3 hours
+ - [June 6](#july-6-assembling-everything-together) : 4 hours
+ - [June 7-8](#june-7-8-designing-the-pcbs) : 5 hours
+ - [June 17](#june-17-receiving-the-pcbs-and-soldering) : 2-3 hours
 
-## July 11: Started prototyping + visuals
+
+## July 5: Started prototyping + visuals
 
 <table border="0">
   <tr>
     <td valign="top">
-      <img src="https://cdn.hackclub.com/019f6692-acd1-7dd8-9a5f-7f35852d8203/paste-1784132312883.png" width="600px">
+      <img src="https://cdn.hackclub.com/019f6692-acd1-7dd8-9a5f-7f35852d8203/paste-1784132312883.png" width="400px">
     </td>
     <td valign="top">
       <p>I received all the materials I needed to start prototyping:</p>
@@ -93,7 +97,7 @@ But in a PCB, this would be much different since the connection would be direct,
 
 **Time spent this session: 3 hours (2 for prototyping and 1 for the oled screen animations)**
 
-## July 12: Assembling everything together
+## July 6: Assembling everything together
 
 Now here I don't know why but i decided I wanted to feel how the final product would be like so I assembled it all into a more compact, less prototype-looking way, but still technically a prototype.\
 You'll understand.
@@ -118,7 +122,64 @@ Here's how it turned out:
 </table>
 
 Pretty good, even if it wasn't perfect.\
-Next up would be PCB making! I had actually already started making a PCB a week ago and 
-had it will arrive tomorrow.
+Next up would be PCB making! I started researching as to how to make a PCB on websites such as SparkFun.
 
 **Time spent this session: 4 hours (drilling holes in wood is NOT easy, trust me)**
+
+## June 7-8: Designing the PCBs
+
+Today I spent at least 2 hours learning everything I could about printed circuits and downloaded EasyEDA Pro (yes, ik, not KiCad).
+Made my first schematic :
+
+![image](https://cdn.hackclub.com/019f7144-2014-7ccf-a530-320e75e5a074/old_schematic.png)
+
+
+In hindsight: this is horrible. Luckily I saw some other schematics and realised this wasn't the right path. Version 2 :
+
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="https://cdn.hackclub.com/019f7144-ec38-7b82-8792-5ddf6fb689ab/new_schematic.png" width="150">
+    </td>
+    <td>
+      <img src="https://cdn.hackclub.com/019f7146-6ca9-7aa6-bfc8-41119aebd0bf/pcb.jpg" width="150">
+    </td>
+  </tr>
+</table>
+
+Way better! After getting all the traces right and the DRC (Design Rule Checker) empty, I ordered from JLCPCB.
+
+**Time spent this session: 5 hours**\
+New skill acquired!
+
+## June 17: Receiving the PCBs and soldering
+
+Today I received my JLCPCB order!
+<table border="0">
+  <tr>
+    <td>
+      <img src="https://cdn.hackclub.com/019f713d-5fd3-72c7-81d7-2c55419a6003/IMG_5702.jpeg" width="150">
+    </td>
+    <td>
+      <img src="https://cdn.hackclub.com/019f713d-97bd-7654-b5fa-9151fd0e1ece/IMG_5703.jpeg)" width="150">
+    </td>
+    <td>
+      <img src="https://cdn.hackclub.com/019f713d-d997-7f42-8b90-e54e813f5346/IMG_5708.jpeg" width="150">
+    </td>
+  </tr>
+</table>
+
+Looks great! EXCEPT:
+ - Wrong number of pin holes for the amplifiers
+ - One of the mounting holes of the OLED screen is on a trace.
+ - Buttons are too small
+ - I realized I forgot to check something: the DFM (checked again and yh, lots of red everywhere)
+
+Soldering time with a 40 pins GPIO header I found on PineHut. I don't really know how to solder yet, so this is for practicing (there are 5 pcb boards and two gpio headers so I can train with them)
+
+![image](https://cdn.hackclub.com/019f713d-f1ef-7cbe-81fe-b28468ac3720/IMG_5719.jpeg)
+
+(I burnt the first board sooo bad)
+
+**Time spent this session: 2-3 hours**
