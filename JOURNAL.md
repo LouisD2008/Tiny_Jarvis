@@ -29,7 +29,7 @@
   </tr>
 </table>
 
-The first difficulty was met when connecting all these components together during prototyping. The rotary encoder and OLED did not give me any trouble, I just had to connect them to the right GPIO pins on the pi.(The screen looks weird bc i wasnt using Luma) 
+The first difficulty was met when connecting all these components together during prototyping. The rotary encoder and OLED did not give me any trouble, I just had to connect them to the right GPIO pins on the Pi (The screen looks weird bc i wasnt using Luma).
 
 
 <table border="0">
@@ -63,6 +63,14 @@ As a matter of fact, the speakers did not work, as the connection to the amp was
 
 But in a PCB, this would be much different since the connection would be direct, so I will implement the amps + speakers in the PCB later on.
 
+<u>tl;dr:</u> 
+ - OLED screen works perfectly after a few code changes to the testing script
+  - Rotary encoder and buttons work after learning how a breadboard works
+  - USB mic works without flaw
+  - Amps+speakers don't work rn but they'll work on a PCB
+
+  Spent some time in [Piskel](https://www.piskelapp.com/) designing visuals (not as easy as it sounds)
+
 
 <table border="0">
   <tr>
@@ -84,3 +92,33 @@ But in a PCB, this would be much different since the connection would be direct,
 
 
 **Time spent this session: 3 hours (2 for prototyping and 1 for the oled screen animations)**
+
+## July 12: Assembling everything together
+
+Now here I don't know why but i decided I wanted to feel how the final product would be like so I assembled it all into a more compact, less prototype-looking way, but still technically a prototype.\
+You'll understand.
+
+![image](https://cdn.hackclub.com/019f66cc-8eb4-794b-9e8b-9c2a5fc2ce81/paste-1784136108680.png)
+
+I spent an afternoon drilling holes into an old cigar box and trying to figure out how to place everything in the right way, making a lot of mistakes along the road.
+Here's how it turned out:
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="https://cdn.hackclub.com/019f66cd-f607-79b0-8238-a4f380b408de/paste-1784136196854.png" width="150">
+    </td>
+    <td>
+      <img src="https://cdn.hackclub.com/019f66ce-1630-75c3-9a52-ebeb7f2eefe2/paste-1784136205713.png" width="150">
+    </td>
+    <td>
+      <img src="https://cdn.hackclub.com/019f66ce-435f-72e1-a2f3-f511dfac64a9/paste-1784136217919.png" width="150">
+    </td>
+  </tr>
+</table>
+
+Pretty good, even if it wasn't perfect.\
+Next up would be PCB making! I had actually already started making a PCB a week ago and 
+had it will arrive tomorrow.
+
+**Time spent this session: 4 hours (drilling holes in wood is NOT easy, trust me)**

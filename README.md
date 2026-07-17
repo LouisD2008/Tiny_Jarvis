@@ -25,6 +25,7 @@ The software for Tiny Jarvis is all in this repository, and you can take a look 
 ```
 Tiny_Jarvis/
 ├── .venv/  # virtual env with all dependencies installed
+├── pcb
 ├── piper_voices/
 ├── recordings/
 ├── assets/
