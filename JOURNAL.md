@@ -171,7 +171,7 @@ Today I received my JLCPCB order!
 </table>
 
 Looks great! EXCEPT:
- - Wrong number of pin holes for the amplifiers
+ - I had bought amplifier modules, but turns out I had actually placed the TQFN or smth package instead of holes needed to solder the module. And since I had taken the amps out of PCBa... yh. won't work.
  - One of the mounting holes of the OLED screen is on a trace.
  - Buttons are too small
  - I realized I forgot to check something: the DFM (checked again and yh, lots of red everywhere)
