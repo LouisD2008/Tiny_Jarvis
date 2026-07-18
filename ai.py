@@ -1,21 +1,27 @@
-# Prequesites: ollama running, and model pulled (ollama pull <model>)
-from ollama import chat
-from ollama import ChatResponse
+from llama_cpp import Llama
+
+
+llm = Llama(
+    model_path="./models/model-Q4_K_M.gguf",
+    n_ctx = 2048,
+    n_threads = 4,  # cos rpi5 processor has 4 cores
+    flash_attn = True,  # optimizes the math heavy lifting
+)
 
 
 def generate(prompt):
-    response: ChatResponse = chat(
-        model='gemma3', 
+    response = llm.create_chat_completion(
         messages=[{
-        'role': 'user',
-        'content': "Answer in a concise, thoughtful way to the following prompt: " + prompt
+            'role': 'user',
+            'content': "Answer in a concise, thoughtful way to the following prompt: " + prompt
         }],
-        stream = True
+        stream = True,
+        cache_prompt = True   # avoids recalculating the whole history on every turn
     )
-    # return response.message.content
-    # instead of that, we use yield keyword
     for chunk in response:
-        yield chunk.message.content
+        delta = chunk['choices'][0]['delta']
+        if 'content' in delta:
+            yield delta['content']
 
 
 def sentence_buffer(token_gen):

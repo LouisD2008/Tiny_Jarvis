@@ -6,7 +6,11 @@ from scipy.io import wavfile
 import numpy as np
 import queue
 
+
 btn_a = Button(17)
+btn_b = Button(27, hold_time = 2)
+
+
 sample_rate = 44100
 output_dir = "recordings"
 audio_frames = []
@@ -50,11 +54,16 @@ def stop_recording():
 def get_latest_recordings():
     try:
         return finished_recordings.get_nowait()
-    except queue.Empty():
+    except queue.Empty:
         return None
 
+
+def safe_shutdown():
+    print("Shutdown button held, safely powering off rpi5")
+    os.system("sudo poweroff")
 
 btn_a.when_pressed = start_recording
 btn_a.when_released = stop_recording
 
-# button b is used turning off the pi, will be implemented later.
+
+btn_b.when_held = safe_shutdown

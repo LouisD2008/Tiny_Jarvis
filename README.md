@@ -8,7 +8,7 @@
     - [Application and user scenario](#application-and-user-scenario)
  - [How to install](#how-to-install)
     - [Prerequisites](#prerequisites)
-    - [Dependencies](#dependencies)
+    - [Dependencies](#dependencies-run-these-in-order)
     - [Other](#other)
  - [Hardware](#hardware)
 
@@ -25,8 +25,9 @@ The software for Tiny Jarvis is all in this repository, and you can take a look 
 ```
 Tiny_Jarvis/
 ├── .venv/  # virtual env with all dependencies installed
-├── pcb
+├── pcb/
 ├── piper_voices/
+├── models/
 ├── recordings/
 ├── assets/
 ├── ai.py
@@ -43,13 +44,13 @@ Tiny_Jarvis/
 The OLED screen shows an `IDLE` animation when idle.\
 User presses a button, gives a command, and releases the button when done speaking.\
 The captured audio is translated into text by [faster-whisper](https://pypi.org/project/faster-whisper/0.3.0/).
-That text is given as a prompt to a model of your choice using [Ollama](https://ollama.com/), preferably a low-parameter model like Qwen3-0.6B, balancing speed and quality.\
+That text is given as a prompt to a model of your choice using [llama.cpp](https://github.com/abetlen/llama-cpp-python), preferably a low-parameter model like Llama-3.2-3B, balancing speed and quality.\
 The model's ouput is streamed into [Piper TTS](https://github.com/rhasspy/piper), a text-to-speech model, and played through the speakers (stereo sound).\
 OLED screen shows `THINKING` and `SPEAKING` animations meanwhile.
 The other button serves a single purpose: to turn off the Raspberry Pi 5 safely through `sudo poweroff`.
 
 If the user's prompt starts with "Play ...", then the prompt is rerouted through [librespot](https://github.com/librespot-org/librespot) to play some music using Spotify premium! 
-> Note: This only works when connected to Wifi. Also this is still in development.
+> Note: This only works when connected to Wi-fi. Also this is still in development.
 
 
 # How to install
@@ -68,7 +69,7 @@ python3 -m venv .venv
 source .venv/bin/activate   # enter the .venv
 ```
 
-## Dependencies
+## Dependencies (run these in order)
 
 All needed dependencies are listed in `requirements.txt`, and can be downloaded by running either commands in the root directory (in the .venv):
 ```bash
@@ -76,7 +77,7 @@ pip install -r requirements.txt
 ```
 or :
 ```bash
-pip install piper-tts luma.oled Pillow faster-whisper ollama gpiozero sounddevice scipy numpy
+pip install piper-tts luma.oled Pillow faster-whisper gpiozero sounddevice scipy numpy llama-cpp-python
 ```
 
 ## Other
@@ -90,10 +91,13 @@ and for `sounddevice` and `portaudio`:
 ```bash
 sudo apt install libportaudio2 portaudio19-dev python3-dev
 ```
-For `ollama`: you need to pull a model first. For example:
+For `llama.cpp`: run this to force a native compilation:
 ```bash
-ollama pull qwen3:0.6b
+CMAKE_ARGS="-DLLAMA_NATIVE=ON -DLLAMA_ARM_ARCH=armv8.4-a" pip install llama-cpp-python --no-cache-dir
 ```
+and download the Llama 3.2 3B model (Recommended but optional) here: https://huggingface.co/osmapi/Nidum-Llama-3.2-3B-Uncensored-GGUF/resolve/main/model-Q4_K_M.gguf 
+then place it inside the `models/` folder.
+
 Also, the buttons need to be on the right GPIO pins.\
 Button for talking should be on GPIO 17 and the other on GPIO 27, but you can change these numbers in `listener.py`.
 
@@ -108,6 +112,7 @@ Also: if you don't have it downloaded yet, make  sure to get a Piper voice in th
 ```bash
 python -m piper.download_voices en_US-lessac-medium
 ```
+Further optimizations: ensure ZRAM is active on rpi OS Bookworm to compress bg OS memory and free up physical RAM for the model. (run `zramctl` in the terminal to verify it's active)
 
 # Hardware
 

@@ -2,9 +2,9 @@ piper-tts
 luma.oled
 Pillow
 faster-whisper
-ollama
 gpiozero
 sounddevice
 scipy
 numpy
 pyaudio
+llama-cpp-python

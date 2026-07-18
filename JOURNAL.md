@@ -7,6 +7,7 @@
  - [June 6](#july-6-assembling-everything-together) : 4 hours
  - [June 7-8](#june-7-8-designing-the-pcbs) : 5 hours
  - [June 17](#june-17-receiving-the-pcbs-and-soldering) : 2-3 hours
+ - [June 18]() : hours
 
 
 ## July 5: Started prototyping + visuals
@@ -183,3 +184,38 @@ Soldering time with a 40 pins GPIO header I found on PineHut. I don't really kno
 (I burnt the first board sooo bad)
 
 **Time spent this session: 2-3 hours**
+
+## June 18: working on a new PCB prototype + voltage checking
+
+Today I spent a lot of time on EasyEDA Pro and JLCDFM online checker.
+
+Managed to fix most of the issues:
+ - Silkscreen to pad/silkscreen to hole: don’t care, they have a computer program that fixes that at JLCPCB, plus very unlikely. Can ignore.
+ - Annular ring: the only issues are with the mounting holes. Can ignore.
+ - Tht to smd: it needs a 2.03mm or more to be green; except that’s ridiculously high and not for consumer electronics, since mine are above the 0.25mm recommended threshold, fixed.
+ - Pad spacing: fixed (by hand)
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="https://cdn.hackclub.com/019f7555-feea-737d-a8f1-1bd4cc759117/paste-1784379997310.png" width="150">
+    </td>
+    <td>
+      <img src="https://cdn.hackclub.com/019f7556-303b-73e2-a918-1af42ceefb85/paste-1784380009740.png" width="150">
+    </td>
+    <td>
+      <img src="https://cdn.hackclub.com/019f7556-52e1-7554-987f-e434936ffe67/paste-1784380019259.png" width="150">
+    </td>
+  </tr>
+</table>
+
+Also: for the next batch, the amps will be included in the PCB assembly and won't need to be soldered by hand (which btw requires micro-soldering equipment and reflow station and whatnot).
+
+Plus I did more soldering and tested the PCBs I received with the new multimeter I just bought.\
+Conclusion: 3 shorts on bottom layer and non on top, so I'm getting better.
+
+![image](https://cdn.hackclub.com/019f75d3-a373-7c63-a153-230085be33ea/paste-1784388230021.png)
+
+**Time spent this session: 2 hours**
+
+
