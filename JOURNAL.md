@@ -216,6 +216,11 @@ Conclusion: 3 shorts on bottom layer and non on top, so I'm getting better.
 
 ![image](https://cdn.hackclub.com/019f75d3-a373-7c63-a153-230085be33ea/paste-1784388230021.png)
 
+Soon I'll be ordering the next batch of PCBs, however: I have a more limited budget and with delivery fees and whatnot, I'll be needing funding.
+
 **Time spent this session: 2 hours**
+
+
+
 
 
