@@ -7,7 +7,7 @@
  - [June 6](#july-6-assembling-everything-together) : 4 hours
  - [June 7-8](#june-7-8-designing-the-pcbs) : 5 hours
  - [June 17](#june-17-receiving-the-pcbs-and-soldering) : 2-3 hours
- - [June 18]() : 2 hours
+ - [June 18](#june-18-working-on-a-new-pcb-prototype--voltage-checking) : 2 hours
 
 > The hours here do NOT include the hours coding.
 
@@ -223,7 +223,7 @@ Soon I'll be ordering the next batch of PCBs, however: I have a more limited bud
  - Shipping Estimate: <b>$21.26</b>
  - Customs duties & taxes: <b>$13.32</b>
 
- Total: ~79.89
+ Total: <b>~79.89</b>
  
 
 **Time spent this session: 2 hours**
