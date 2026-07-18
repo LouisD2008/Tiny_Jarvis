@@ -7,8 +7,9 @@
  - [June 6](#july-6-assembling-everything-together) : 4 hours
  - [June 7-8](#june-7-8-designing-the-pcbs) : 5 hours
  - [June 17](#june-17-receiving-the-pcbs-and-soldering) : 2-3 hours
- - [June 18]() : hours
+ - [June 18]() : 2 hours
 
+> The hours here do NOT include the hours coding.
 
 ## July 5: Started prototyping + visuals
 
@@ -212,11 +213,18 @@ Managed to fix most of the issues:
 Also: for the next batch, the amps will be included in the PCB assembly and won't need to be soldered by hand (which btw requires micro-soldering equipment and reflow station and whatnot).
 
 Plus I did more soldering and tested the PCBs I received with the new multimeter I just bought.\
-Conclusion: 3 shorts on bottom layer and non on top, so I'm getting better.
+<u><b>Conclusion:</b></u> 3 shorts on bottom layer and 1 on top, so I'm getting better.
 
 ![image](https://cdn.hackclub.com/019f75d3-a373-7c63-a153-230085be33ea/paste-1784388230021.png)
 
-Soon I'll be ordering the next batch of PCBs, however: I have a more limited budget and with delivery fees and whatnot, I'll be needing funding.
+Soon I'll be ordering the next batch of PCBs, however: I have a more limited budget and with delivery fees and whatnot, I'll be needing funding. On **JLCPCB**, when ordering the bare minimum and not buying the rotary encoder AND the oled screen, and while having to solder them by hand:
+
+ - Merchandise Total: <b>$45.31</b>
+ - Shipping Estimate: <b>$21.26</b>
+ - Customs duties & taxes: <b>$13.32</b>
+
+ Total: ~79.89
+ 
 
 **Time spent this session: 2 hours**
 
