@@ -9,7 +9,6 @@
  - [How to install](#how-to-install)
     - [Prerequisites](#prerequisites)
     - [Dependencies](#dependencies-run-these-in-order)
-    - [Other](#other)
  - [Hardware](#hardware)
 
 # Description
@@ -73,48 +72,6 @@ Run the `install.sh` script by running:
 chmod +x install.sh
 ./install.sh
 ```
-## Other: 
-
-Download the Llama 3.2 3B model (Recommended but optional) [here](https://huggingface.co/osmapi/Nidum-Llama-3.2-3B-Uncensored-GGUF/resolve/main/model-Q4_K_M.gguf), or run 
-```bash
-wget -P models/ https://huggingface.co/osmapi/Nidum-Llama-3.2-3B-Uncensored-GGUF/resolve/main/model-Q4_K_M.gguf
-```
-then place it inside the `models/` folder.
-
-
-Make sure to turn on I2C in raspberry pi settings.\
-Access these settings via:
-```bash
-sudo raspi-config
-```
-I2C Interface --> ON
-
-Make  sure as well to get a Piper voice in the `piper_voices/`:
-```bash
-python -m piper.download_voices en_US-lessac-medium
-```
-Further optimizations: ensure ZRAM is active on rpi OS Bookworm to compress bg OS memory and free up physical RAM for the model. (run `zramctl` in the terminal to verify it's active)
-
-Also: you can push the Pi into "performance mode" by creating a simple systemd service:
-```bash
-sudo tee /etc/systemd/system/cpu-performance.service << 'EOF'
-[Unit]
-Description=Set CPU governor to performance
-After=multi-user.target
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash -c 'echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
-RemainAfterExit=yes
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-sudo systemctl daemon-reload
-sudo systemctl enable --now cpu-performance
-```
-and ensure that the memory allocated to the gpu doesn't go past 16 Mb. (`vcgencmd get_mem gpu`)
 
 # Hardware
 
