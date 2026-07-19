@@ -7,4 +7,4 @@ sounddevice
 scipy
 numpy
 pyaudio
-llama-cpp-python
+# llama-cpp-python because a native compilation is preferred

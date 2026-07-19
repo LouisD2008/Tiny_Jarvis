@@ -56,63 +56,65 @@ If the user's prompt starts with "Play ...", then the prompt is rerouted through
 # How to install
 
 ## Prerequisites
-Before doing anything, create a .venv and install python (system-wide).
-Run these commands:
 
+<b>OS recommendation:</b> Raspberry Pi OS Lite (64-bit)
+
+Before doing anything, clone the repo:
 ```bash
 sudo apt update
-sudo apt install python3 python3-venv
-```
-then in the project directory:
-```bash
-python3 -m venv .venv
-source .venv/bin/activate   # enter the .venv
+sudo apt install git
+git clone https://github.com/LouisD2008/Tiny_Jarvis.git
 ```
 
-## Dependencies (run these in order)
+## Dependencies:
 
-All needed dependencies are listed in `requirements.txt`, and can be downloaded by running either commands in the root directory (in the .venv):
+Run the `install.sh` script by running:
 ```bash
-pip install -r requirements.txt
+chmod +x install.sh
+./install.sh
 ```
-or :
-```bash
-pip install piper-tts luma.oled Pillow faster-whisper gpiozero sounddevice scipy numpy llama-cpp-python
-```
+## Other: 
 
-## Other
-
-For `luma.oled`, other system-wide packages are needed.
-Do 
+Download the Llama 3.2 3B model (Recommended but optional) [here](https://huggingface.co/osmapi/Nidum-Llama-3.2-3B-Uncensored-GGUF/resolve/main/model-Q4_K_M.gguf), or run 
 ```bash
-sudo apt install libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7-dev libtiff6-dev
-``` 
-and for `sounddevice` and `portaudio`:
-```bash
-sudo apt install libportaudio2 portaudio19-dev python3-dev
+wget -P models/ https://huggingface.co/osmapi/Nidum-Llama-3.2-3B-Uncensored-GGUF/resolve/main/model-Q4_K_M.gguf
 ```
-For `llama.cpp`: run this to force a native compilation:
-```bash
-CMAKE_ARGS="-DLLAMA_NATIVE=ON -DLLAMA_ARM_ARCH=armv8.4-a" pip install llama-cpp-python --no-cache-dir
-```
-and download the Llama 3.2 3B model (Recommended but optional) here: https://huggingface.co/osmapi/Nidum-Llama-3.2-3B-Uncensored-GGUF/resolve/main/model-Q4_K_M.gguf 
 then place it inside the `models/` folder.
 
-Also, the buttons need to be on the right GPIO pins.\
-Button for talking should be on GPIO 17 and the other on GPIO 27, but you can change these numbers in `listener.py`.
 
-Next: make sure to turn on I2C in raspberry pi settings.\
+Make sure to turn on I2C in raspberry pi settings.\
 Access these settings via:
 ```bash
 sudo raspi-config
 ```
 I2C Interface --> ON
 
-Also: if you don't have it downloaded yet, make  sure to get a Piper voice in the `piper_voices/`:
+Make  sure as well to get a Piper voice in the `piper_voices/`:
 ```bash
 python -m piper.download_voices en_US-lessac-medium
 ```
 Further optimizations: ensure ZRAM is active on rpi OS Bookworm to compress bg OS memory and free up physical RAM for the model. (run `zramctl` in the terminal to verify it's active)
+
+Also: you can push the Pi into "performance mode" by creating a simple systemd service:
+```bash
+sudo tee /etc/systemd/system/cpu-performance.service << 'EOF'
+[Unit]
+Description=Set CPU governor to performance
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now cpu-performance
+```
+and ensure that the memory allocated to the gpu doesn't go past 16 Mb. (`vcgencmd get_mem gpu`)
 
 # Hardware
 
