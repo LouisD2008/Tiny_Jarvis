@@ -2,6 +2,7 @@ piper-tts
 luma.oled
 Pillow
 faster-whisper
+rpi-lgpio  # needed for gpiozero
 gpiozero
 sounddevice
 scipy

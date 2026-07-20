@@ -68,7 +68,9 @@ sudo apt install -y \
     cmake \
     build-essential \
     wget \
-    librespot
+    librespot \
+    swig \
+    liblgpio-dev 
 
 echo ""
 echo "[2/10] Checking GPU memory allocation..."

@@ -1,14 +1,19 @@
 import time
 import os
-from gpiozero import Button
 import sounddevice as sd
 from scipy.io import wavfile
 import numpy as np
 import queue
 
 
-btn_a = Button(12)
-btn_b = Button(13, hold_time = 2)
+try:
+    from gpiozero import Button
+    btn_a = Button(12)
+    btn_b = Button(13, hold_time = 2)
+    GPIO_AVAILABLE = True
+except Exception as e:
+    print("GPIO initialization failed. {e}. Buttons disabled.")
+    GPIO_AVAILABLE = False
 
 
 sample_rate = 44100
@@ -27,10 +32,14 @@ def start_recording():
     global is_recording, audio_frames, audio_stream
     if is_recording:
         return
-    is_recording = True
-    audio_frames = []
-    audio_stream = sd.InputStream(samplerate = sample_rate, channels=1, callback=audio_callback)
-    audio_stream.start()
+    try:
+        is_recording = True
+        audio_frames = []
+        audio_stream = sd.InputStream(samplerate = sample_rate, channels=1, callback=audio_callback)
+        audio_stream.start()
+    except Exception as e:
+        print(f"Failed to start recording: {e}")
+        is_recording = False
 
 
 def stop_recording():
@@ -38,16 +47,20 @@ def stop_recording():
     filename = None
     if not is_recording:
         return
-    if audio_stream:
-        audio_stream.stop()
-        audio_stream.close()
-        audio_stream = None
-    if audio_frames:
-        full_audio = np.concatenate(audio_frames, axis = 0)
-        filename = os.path.join(output_dir, f"{int(time.time())}.wav")
-        wavfile.write(filename, sample_rate, full_audio)
-        finished_recordings.put(filename)
-    is_recording = False
+    try:
+        if audio_stream:
+            audio_stream.stop()
+            audio_stream.close()
+            audio_stream = None
+        if audio_frames:
+            full_audio = np.concatenate(audio_frames, axis = 0)
+            filename = os.path.join(output_dir, f"{int(time.time())}.wav")
+            wavfile.write(filename, sample_rate, full_audio)
+            finished_recordings.put(filename)
+    except Exception as e:
+        print(f"Error saving recording: {e}")
+    finally:
+        is_recording = False
     return filename
 
 
@@ -62,8 +75,8 @@ def safe_shutdown():
     print("Shutdown button held, safely powering off rpi5")
     os.system("sudo poweroff")
 
-btn_a.when_pressed = start_recording
-btn_a.when_released = stop_recording
 
-
-btn_b.when_held = safe_shutdown
+if GPIO_AVAILABLE:
+    btn_a.when_pressed = start_recording
+    btn_a.when_released = stop_recording
+    btn_b.when_held = safe_shutdown
