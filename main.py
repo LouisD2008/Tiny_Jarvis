@@ -10,7 +10,7 @@ import time
 def main():
     d = AssistantDisplay()
     if not os.path.exists("recordings"):  # small check in case recordings/ dir doesnt exist, you never know
-        print("Warning: you didn't have a recordings/ folder. Please restart the script for everything to work well.")
+        print("Warning: you didn't have a recordings/ folder, so we created one")
         os.makedirs("recordings")
     print("Tiny Jarvis is active and listening!")
     d.show("home.png")

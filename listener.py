@@ -7,8 +7,8 @@ import numpy as np
 import queue
 
 
-btn_a = Button(17)
-btn_b = Button(27, hold_time = 2)
+btn_a = Button(12)
+btn_b = Button(13, hold_time = 2)
 
 
 sample_rate = 44100
