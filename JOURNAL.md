@@ -3,11 +3,13 @@
 > <u>Note</u>: if images don't load first try, reload the page.
 
 ## Table of contents:
- - [July 5](#june-5-started-prototyping) : 3 hours
- - [June 6](#july-6-assembling-everything-together) : 4 hours
- - [June 7-8](#june-7-8-designing-the-pcbs) : 5 hours
- - [June 17](#june-17-receiving-the-pcbs-and-soldering) : 2-3 hours
- - [June 18](#june-18-working-on-a-new-pcb-prototype--voltage-checking) : 2 hours
+ - [July 5](#july-5-started-prototyping--visuals) : 3 hours
+ - [July 6](#july-6-assembling-everything-together) : 4 hours
+ - [July 7-8](#july-7-8-designing-the-pcbs) : 5 hours
+ - [July 17](#july-17-receiving-the-pcbs-and-soldering) : 2-3 hours
+ - [July 18](#july-18-working-on-a-new-pcb-prototype--voltage-checking) : 2 hours
+ - [July 21](#july-21-schematic-and-pcb-error-checking)
+
 
 > The hours here do NOT include the hours coding.
 
@@ -128,7 +130,7 @@ Next up would be PCB making! I started researching as to how to make a PCB on we
 
 **Time spent this session: 4 hours (drilling holes in wood is NOT easy, trust me)**
 
-## June 7-8: Designing the PCBs
+## July 7-8: Designing the PCBs
 
 Today I spent at least 2 hours learning everything I could about printed circuits and downloaded EasyEDA Pro (yes, ik, not KiCad).
 Made my first schematic :
@@ -155,7 +157,7 @@ Way better! After getting all the traces right and the DRC (Design Rule Checker)
 **Time spent this session: 5 hours**\
 New skill acquired!
 
-## June 17: Receiving the PCBs and soldering
+## July 17: Receiving the PCBs and soldering
 
 Today I received my JLCPCB order!
 <table border="0">
@@ -186,7 +188,7 @@ Soldering time with a 40 pins GPIO header I found on PineHut. I don't really kno
 
 **Time spent this session: 2-3 hours**
 
-## June 18: working on a new PCB prototype + voltage checking
+## July 18: working on a new PCB prototype + voltage checking
 
 Today I spent a lot of time on EasyEDA Pro and JLCDFM online checker.
 
@@ -228,7 +230,25 @@ Soon I'll be ordering the next batch of PCBs, however: I have a more limited bud
 
 **Time spent this session: 2 hours**
 
+## July 21: Schematic and PCB error checking
 
+Today I finally got some feedback on my PCB schematic on the Slack #electronics channel.
+Lots of issues:
+ - VCC wasn't actually connected to the VCC GPIO pins 💀
+ - Resistors on the SD_MODE# pins of the amps were actually electrically incorrect, since they led into the void. Did some research and it should be: left channel --> SD_MODE connected to 3.3V/VCC (because it is > 1.4V, it activates left channel) and right channel --> 220 kΩ to 330 kΩ resistor in series between the SD_MODE and 3.3V/VCC (because combined with the chip's internal resistor, this drops the pins voltage into the <1.4V range required for right channel)
+ - Some resistors weren't needed for the I2C OLED screen bc Raspberry Pi 5 alr has software pullups incorporated, and would've actually led to bad functioning.
+ - GND wasn't connected to the GPIO pins either (great)
+ - Rotary encoder didn't really need that decoupling cap, since it alr had filtering/debouncing caps and there are other decoupling caps on the PCB.
+
+ Aaaand since I changed a lot of things in the schematic, I also had to change the PCB:
+  - Ensure vias weren't literally on the silkscreen, which is actually a Design Rule I set but that auto-routing doesn't seem to care about
+  - Vias not being ON pads was also a nice change to make
+  - Resistors on the right side of the chips, same for decoupling caps to make everything simpler, needing to rewire most of the auto-routing's mediocre work.
+  - While rewiring, made some 90 degree angle traces. Read that it wasn't best practice later and had to redo a ton of traces.
+
+  ![image](https://cdn.hackclub.com/019f8554-0fe2-71c0-8862-071e221230a6/paste-1784648305946.png)
+
+  **Time spent this session: 3 hours**
 
 
 
