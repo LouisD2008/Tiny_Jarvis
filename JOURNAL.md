@@ -6,9 +6,11 @@
  - [July 5](#july-5-started-prototyping--visuals) : 3 hours
  - [July 6](#july-6-assembling-everything-together) : 4 hours
  - [July 7-8](#july-7-8-designing-the-pcbs) : 5 hours
- - [July 17](#july-17-receiving-the-pcbs-and-soldering) : 2-3 hours
+ - [July 17](#july-17-receiving-the-pcbs-and-soldering) : 3 hours
  - [July 18](#july-18-working-on-a-new-pcb-prototype--voltage-checking) : 2 hours
- - [July 21](#july-21-schematic-and-pcb-error-checking)
+ - [July 21](#july-21-schematic-and-pcb-error-checking) : 3 hours
+
+ **Total**: 20 hours
 
 
 > The hours here do NOT include the hours coding.
