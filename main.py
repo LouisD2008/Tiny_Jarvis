@@ -3,6 +3,7 @@ from speaker import speak
 from transcriber import transcribe_audio
 from OLED import AssistantDisplay
 from ai import generate, sentence_buffer
+from cooking.cooking_helper import get_recipe
 import os
 import time
 
@@ -24,11 +25,20 @@ def main():
                 print(f"Prompt : {prompt}")
                 if not prompt.strip():  # if the user didn't say anything, if faster-whisper returned nothing
                     print("Empty transcription. Skipping.")
-                    os.remove(audio_file)
                     continue # skips the rest of the code in this iteration and goes back to the top of the while loop
-                print("Generating response...")
+                if prompt.startswith("Cooking"):
+                    recipe_object = get_recipe()
+                    recipe_text = (
+                        f"{recipe_object['Title']}."
+                        f"Ingredients needed: {recipe_object['Ingredients']}."
+                        f"Recipe: {recipe_object['Recipe']}."
+                        f"Finally, the preparation and cooking time this recipe will take: {recipe_object['Prep & Cooking Time']}."
+                    )
+                    raw_token_stream = [recipe_text]  # we put it in a list so sentence_buffer can iterate over it without breaking
+                else:
+                    print("Generating response...")
+                    raw_token_stream = generate(prompt)  # the raw token stream generated in real time by the ai chatbot
                 d.show("thinking_animation.gif")
-                raw_token_stream = generate(prompt)  # the raw token stream generated in real time by the ai chatbot
                 sentence_stream = sentence_buffer(raw_token_stream)  # we "filter" that raw token stream into a list of sentences
                 speech_success = speak(sentence_stream)  # that list/stream of sentences is poured into the speakers!
                 if not speech_success:

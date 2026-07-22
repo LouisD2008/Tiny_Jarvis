@@ -1,9 +1,16 @@
 import time
 import os
-import sounddevice as sd
 from scipy.io import wavfile
 import numpy as np
 import queue
+
+
+try:
+    import sounddevice as sd
+    SOUNDDEVICE_AVAILABLE = True
+except Exception as e:
+    print("Couldn't initalize sounddevice library... {e}")
+    SOUNDDEVICE_AVAILABLE = False
 
 
 try:
@@ -77,6 +84,7 @@ def safe_shutdown():
 
 
 if GPIO_AVAILABLE:
-    btn_a.when_pressed = start_recording
-    btn_a.when_released = stop_recording
-    btn_b.when_held = safe_shutdown
+    if SOUNDDEVICE_AVAILABLE:
+        btn_a.when_pressed = start_recording
+        btn_a.when_released = stop_recording
+        btn_b.when_held = safe_shutdown

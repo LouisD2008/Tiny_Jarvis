@@ -248,7 +248,7 @@ Lots of issues:
   - Resistors on the right side of the chips, same for decoupling caps to make everything simpler, needing to rewire most of the auto-routing's mediocre work.
   - While rewiring, made some 90 degree angle traces. Read that it wasn't best practice later and had to redo a ton of traces.
 
-  ![image](https://cdn.hackclub.com/019f8554-0fe2-71c0-8862-071e221230a6/paste-1784648305946.png)
+![image](https://cdn.hackclub.com/019f895b-d1c7-7ac2-bdbc-03b50a25691d/paste-1784715922891.png)
 
   **Time spent this session: 3 hours**
 
