@@ -9,8 +9,9 @@
  - [July 17](#july-17-receiving-the-pcbs-and-soldering) : 3 hours
  - [July 18](#july-18-working-on-a-new-pcb-prototype--voltage-checking) : 2 hours
  - [July 21](#july-21-schematic-and-pcb-error-checking) : 3 hours
+ - [July 22](#july-22-more-schematic-before-ordering) : 2 hours
 
- **Total**: 20 hours
+ **Total**: 22 hours
 
 
 > The hours here do NOT include the hours coding.
@@ -252,5 +253,20 @@ Lots of issues:
 
   **Time spent this session: 3 hours**
 
+  ## July 22: More schematic before ordering
+
+   - Turns out you also need to pour a copper fill on the bottom layer (better practice)
+   - And that it's also standard practice to delete all GND traces cos there already is a GND fill.
+   - More or less moving traces out of the way to make the GND fill new spaces where it wasn't before, to be brief.
+   - Learnt about removing dead islands
+   - Learnt about the Exposed Thermal Pad, actually spent an hour debugging the DRC because I didn't know what it was
+   - Acquired some precious knowledge through practice, like using vias to connect short GND traces on the top layer to GND on the bottom layer, not actually connecting all GND traces together since they are all connected via the copper fill.
+   - Realized I didn't even know what GND was. Learnt it was the OV plane, the end of the cycle that electricity flows through. 
+   - Cleaned all the traces up, leaving as much distance as possible bwteen every pad, via and trace
+   - Updated the PCB files in the `pcb/` directory. Still waiting for funding...
 
 
+Looking good!
+![image](https://cdn.hackclub.com/019f8f7b-894a-75f6-b331-c5652f07e6fe/paste-1784818663841.png)
+
+**Time spent this session: 2 hours**

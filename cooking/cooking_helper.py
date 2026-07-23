@@ -10,5 +10,3 @@ def get_recipe():
         for row in reader:
             list.append(row)  # each JSON object = un plat. So it's a list with all the plat JSON objects, easily accessible
     return list[rand_int]
-
-print(get_recipe())
