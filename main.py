@@ -14,7 +14,7 @@ def main():
         print("Warning: you didn't have a recordings/ folder, so we created one")
         os.makedirs("recordings")
     print("Tiny Jarvis is active and listening!")
-    d.show("home.png")
+    d.show_image("home.png")
     while True:
         audio_file = listener.get_latest_recordings()
         if audio_file:  # if audio recordings are found in recordings/
@@ -34,11 +34,12 @@ def main():
                         f"Recipe: {recipe_object['Recipe']}."
                         f"Finally, the preparation and cooking time this recipe will take: {recipe_object['Prep & Cooking Time']}."
                     )
+                    d.show_text(recipe_object['Ingredients'])
                     raw_token_stream = [recipe_text]  # we put it in a list so sentence_buffer can iterate over it without breaking
                 else:
                     print("Generating response...")
+                    d.show_image("thinking_animation.gif")
                     raw_token_stream = generate(prompt)  # the raw token stream generated in real time by the ai chatbot
-                d.show("thinking_animation.gif")
                 sentence_stream = sentence_buffer(raw_token_stream)  # we "filter" that raw token stream into a list of sentences
                 speech_success = speak(sentence_stream)  # that list/stream of sentences is poured into the speakers!
                 if not speech_success:
@@ -49,7 +50,7 @@ def main():
                 if os.path.exists(audio_file):
                     os.remove(audio_file)
                     print("Deleted recording file")
-                    d.show("home.png")
+                    d.show_image("home.png")
         time.sleep(0.2)  # wait a bit in between calling get_latest_recordings()
 
 

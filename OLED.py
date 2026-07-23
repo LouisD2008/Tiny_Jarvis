@@ -1,12 +1,16 @@
 # Note: on the rpi5, do sudo apt install libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7-dev libtiff6-dev
 from luma.core.interface.serial import i2c
 from luma.oled.device import ssd1306
-from PIL import Image, ImageSequence # this is for gifs
+from PIL import Image, ImageSequence, ImageDraw, ImageFont # this is for gifs
 import time
 import threading
 import os
+import textwrap
 
 class DummyDevice:
+    def __init__(self):
+        self.width = 128
+        self.height = 64
     def display(self, img):
         pass
 
@@ -20,7 +24,7 @@ except Exception as e:
 
 
 
-def oled(file_path, stop_event=None):   # stop_event is the thread signal here
+def show_image(file_path, stop_event=None):   # stop_event is the thread signal here
     if not os.path.exists(file_path):
         print(f"Asset file '{file_path}' is missing")
         return
@@ -39,14 +43,31 @@ def oled(file_path, stop_event=None):   # stop_event is the thread signal here
         print(f"Display error: {e}")
 
 
+def oled_text(text, font_size=12, stop_event=None):
+    image = Image.new("1", (device.width, device.height), "black")
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.load_default()
+    wrapped_lines = textwrap.wrap(text, width=21)
+    y = 0
+    for line in wrapped_lines[:5]:
+        draw.text((0, y), line, font=font, fill=255)
+        y += 12
+    device.display(image)
+
+
 class AssistantDisplay:
     def __init__(self):
         self.switch = threading.Event()
         self.thread = None
-    def show(self, file_path):
+    def show_image(self, file_path):
         self.stop()
         self.switch.clear()
-        self.thread = threading.Thread(target = oled, args=(file_path, self.switch))
+        self.thread = threading.Thread(target = show_image, args=(file_path, self.switch))
+        self.thread.start()
+    def show_text(self, text):
+        self.stop()
+        self.switch.clear()
+        self.thread = threading.Thread(target=oled_text, args=(text, 12, self.switch))
         self.thread.start()
     def stop(self):
         self.switch.set()
