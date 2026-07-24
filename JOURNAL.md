@@ -10,8 +10,9 @@
  - [July 18](#july-18-working-on-a-new-pcb-prototype--voltage-checking) : 2 hours
  - [July 21](#july-21-schematic-and-pcb-error-checking) : 3 hours
  - [July 22](#july-22-more-schematic-before-ordering) : 2 hours
+ - [July 23](#june-23-dfm-checks--silkscreen-logo-added) : 2 hours
 
- **Total**: 22 hours
+ **Total**: 24 hours
 
 
 > The hours here do NOT include the hours coding.
@@ -258,10 +259,10 @@ Lots of issues:
    - Turns out you also need to pour a copper fill on the bottom layer (better practice)
    - And that it's also standard practice to delete all GND traces cos there already is a GND fill.
    - More or less moving traces out of the way to make the GND fill new spaces where it wasn't before, to be brief.
-   - Learnt about removing dead islands
+   - Removed dead islands, isolated copper islands, or connected them to the main GND pour via... vias!
    - Learnt about the Exposed Thermal Pad, actually spent an hour debugging the DRC because I didn't know what it was
    - Acquired some precious knowledge through practice, like using vias to connect short GND traces on the top layer to GND on the bottom layer, not actually connecting all GND traces together since they are all connected via the copper fill.
-   - Realized I didn't even know what GND was. Learnt it was the OV plane, the end of the cycle that electricity flows through. 
+   - Realized I didn't even know what GND was. Learnt it was the OV plane, the end of the cycle that electricity flows through.
    - Cleaned all the traces up, leaving as much distance as possible bwteen every pad, via and trace
    - Updated the PCB files in the `pcb/` directory. Still waiting for funding...
 
@@ -270,3 +271,17 @@ Looking good!
 ![image](https://cdn.hackclub.com/019f8f7b-894a-75f6-b331-c5652f07e6fe/paste-1784818663841.png)
 
 **Time spent this session: 2 hours**
+
+# June 23: DFM checks + silkscreen logo added!
+
+- Crazy idea today: adding a cool silkscreen logo to the PCB (it's free I believe)
+
+![image](https://cdn.hackclub.com/019f94d0-189b-7c66-b240-6cd3501add3c/paste-1784908092845.png)
+ - Ofc I put the name of the author according to the [CC BY 3.0 License](https://creativecommons.org/licenses/by/3.0/) ([The Noun Project](https://thenounproject.com))
+ - Also rerouted some traces on both layers that were going through the mounting holes (not good for connectivity)
+ - Fixed some silkscreen going over components, learnt that it may cause the ink to bleed and lead to malfunctionings, even modern machines will detect it and avoid it (still good practice)
+ - Oh and checked the JLCPCB online DFM for any errors I might've reintroduced with all these recent changes, which helped me detect the silkscreen issues and other THT to component clearance issues.
+
+Feel like I'm really getting the hang of PCB making! At least at a hobby level
+
+ **Time spent today: 2 hours**
